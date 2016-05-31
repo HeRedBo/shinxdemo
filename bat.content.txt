@@ -1,0 +1,10 @@
+
+# 第一次创建索引执行的命令
+D:\www\study\sphinx\coreseek-3.2.14-win32\bin\indexer.exe -c D:\www\study\sphinx\myshinx.conf goods --all
+# 安装shinx 服务
+D:\www\study\sphinx\coreseek-3.2.14-win32\bin\searchd.exe -c D:\www\study\sphinx\myshinx.conf --install
+
+
+# 增量索引执行的命令
+D:\www\study\sphinx\coreseek-3.2.14-win32\bin\indexer.exe -c D:\www\study\sphinx\myshinx.conf goods_delta 
+D:\www\study\sphinx\coreseek-3.2.14-win32\bin\indexer.exe -c D:\www\study\sphinx\myshinx.conf --merge goods goods_delta --rotate

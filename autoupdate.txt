@@ -1,0 +1,2 @@
+D:\www\study\sphinx\coreseek-3.2.14-win32\bin\indexer.exe -c D:\www\study\sphinx\myshinx.conf goods_delta 
+D:\www\study\sphinx\coreseek-3.2.14-win32\bin\indexer.exe -c D:\www\study\sphinx\myshinx.conf --merge goods goods_delta --rotate
