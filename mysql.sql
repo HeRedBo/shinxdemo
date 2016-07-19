@@ -5,24 +5,36 @@ LEFT JOIN php34_order e ON d.order_id=e.id WHERE e.pay_status=1 AND d.goods_id=a
 FROM php34_goods a 
 LEFT JOIN php34_goods_attr b ON a.id=b.goods_id WHERE a.is_on_sale=1 AND a.is_delete=0 GROUP BY a.id
 
-# å®é™…éœ€æ±‚ è€ƒè™‘å•†å“çš„ä»·æ ¼ è¯„è®ºæ•°é‡ é”€é‡   å•†å“çš„å±æ€§ éƒ½è¦åœ¨æŸ¥è¯¢çš„è¯­å¥å†…
-# æ¯ä¸ªå•†å“çš„è¯„è®ºæ•° æ€è·¯: è¯„è®ºè¡¨è·å–å•†å“çš„æ•°æ®
+# Êµ¼ÊĞèÇó ¿¼ÂÇÉÌÆ·µÄ¼Û¸ñ ÆÀÂÛÊıÁ¿ ÏúÁ¿   ÉÌÆ·µÄÊôĞÔ ¶¼ÒªÔÚ²éÑ¯µÄÓï¾äÄÚ
+# Ã¿¸öÉÌÆ·µÄÆÀÂÛÊı Ë¼Â·: ÆÀÂÛ±í»ñÈ¡ÉÌÆ·µÄÊı¾İ
 SELECT a.id,a.goods_name,a.shop_price,a.addtime, IFNULL( GROUP_CONCAT(ga.attr_value),'') as attr_value,
-# å•†å“çš„è¯„è®ºæ•°
+# ÉÌÆ·µÄÆÀÂÛÊı
 (SELECT COUNT(c.id) FROM shop_comment c WHERE a.id=c.goods_id)AS pl, 
-# å•†å“çš„é”€é‡ä¸ºå•†å“çš„è®¢å•å•†å“çš„æ•°é‡ å¿…é¡»æ˜¯ä¸€ä¸‹å•çš„
+# ÉÌÆ·µÄÏúÁ¿ÎªÉÌÆ·µÄ¶©µ¥ÉÌÆ·µÄÊıÁ¿ ±ØĞëÊÇÒ»ÏÂµ¥µÄ
 IFNULL((SELECT SUM(og.goods_number) FROM shop_order_goods og LEFT JOIN shop_order o on o.id = og.order_id WHERE o.pay_status = 1 AND og.goods_id = a.id),0) AS XL  
 FROM shop_goods a
-# å…³è”å•†å“çš„å±æ€§
+# ¹ØÁªÉÌÆ·µÄÊôĞÔ
 LEFT JOIN shop_goods_attr ga on a.id = ga.goods_id where  a.is_on_sale =1 and a.is_delete = 0 GROUP BY a.id;
 
 
-# æ•´ç†åçš„SQL
+# ÕûÀíºóµÄSQL
 SELECT a.id,a.goods_name,a.shop_price,a.addtime, IFNULL( GROUP_CONCAT(ga.attr_value),'') as attr_value,(SELECT COUNT(c.id) FROM shop_comment c WHERE a.id=c.goods_id)AS pl,IFNULL((SELECT SUM(og.goods_number) FROM shop_order_goods og LEFT JOIN shop_order o on o.id = og.order_id WHERE o.pay_status = 1 AND og.goods_id = a.id),0) AS XL FROM shop_goods a LEFT JOIN shop_goods_attr ga on a.id = ga.goods_id where  a.is_on_sale =1 and a.is_delete = 0 GROUP BY a.id;
 
 
 
 DROP TABLE IF EXISTS shinx_id;
 create table shinx_id (
-    `max_id` int unsigned not null default '0' comment 'å·²ç»åˆ›å»ºå¥½çš„æœ€åä¸€æ¡è®°å½•çš„id'
+    `max_id` int unsigned not null default '0' comment 'ÒÑ¾­´´½¨ºÃµÄ×îºóÒ»Ìõ¼ÇÂ¼µÄid'
 );
+
+
+SELECT a.userId,a.userName,b.isAudit,b.isOfficer,b.honor 
+FROM t_users a 
+LEFT JOIN t_apply_audit b 
+ON a.userId=b.userId 
+WHERE a.userId=10057 
+AND b.communityId=8
+
+SELECT userId,userName,
+FROM t_users
+where userId = 10057;
